@@ -1,5 +1,11 @@
 import { FC } from 'react';
 
-const NewDeck: FC = () => <p>New deck page</p>;
+import Table from '../../components/Table';
+
+const NewDeck: FC = () => (
+  <Table>
+    <p>New deck</p>
+  </Table>
+);
 
 export default NewDeck;
