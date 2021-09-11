@@ -6,7 +6,7 @@ const AppWrapper = styled.div`
 `;
 
 const Content = styled.div`
-  width: 980px;
+  width: 1040px;
 `;
 
 const Title = styled.h1`
