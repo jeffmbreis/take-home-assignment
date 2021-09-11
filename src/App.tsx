@@ -1,7 +1,8 @@
-import "./App.css";
+import './App.css';
+import AppWrapper from './components/AppWrapper';
 
 function App() {
-  return <div>App</div>;
+  return <AppWrapper>App</AppWrapper>;
 }
 
 export default App;
