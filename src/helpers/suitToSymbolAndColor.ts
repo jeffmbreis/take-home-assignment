@@ -1,22 +1,20 @@
 import CardSuit from '../core/types/CardSuit';
-
-const COLOR_RED = '#EB4042';
-const COLOR_BLACK = '#000000';
+import colors from '../core/theme/colors';
 
 const suitToSymbolAndColor = (
   suit: CardSuit,
 ): { symbol: string; color: string } => {
   switch (suit) {
     case 'H':
-      return { symbol: '♥', color: COLOR_RED };
+      return { symbol: '♥', color: colors.card.red };
     case 'D':
-      return { symbol: '♦', color: COLOR_RED };
+      return { symbol: '♦', color: colors.card.red };
     case 'S':
-      return { symbol: '♠', color: COLOR_BLACK };
+      return { symbol: '♠', color: colors.card.black };
     case 'C':
-      return { symbol: '♣', color: COLOR_BLACK };
+      return { symbol: '♣', color: colors.card.black };
     default:
-      return { symbol: 'None', color: COLOR_BLACK };
+      return { symbol: 'none', color: colors.card.black };
   }
 };
 
