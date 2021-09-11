@@ -2,9 +2,9 @@ import { FC } from 'react';
 
 import suitToSymbolAndColor from '../../helpers/suitToSymbolAndColor';
 import Styled from './Card.styled';
-import { ICard } from './Card.types';
+import { Card as CardProps } from '../../core/modules/deck/deckTypes';
 
-const Card: FC<ICard> = ({ value, suit, ...props }) => (
+const Card: FC<CardProps> = ({ value, suit, ...props }) => (
   <Styled.Card suit={suit} {...props}>
     <Styled.TopCardText>
       {value}

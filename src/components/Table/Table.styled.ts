@@ -27,6 +27,7 @@ const TableCardsContainer = styled.div`
 
 const SubmitCardContainer = styled.div`
   display: flex;
+  flex-direction: column;
   margin: 20px;
 
   form {

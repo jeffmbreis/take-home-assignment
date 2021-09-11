@@ -20,7 +20,7 @@ function App() {
               <Redirect to="/deck/new" />
             </Route>
             <Route exact={true} path="/deck/new" component={NewDeck} />
-            <Route exact={true} path="/deck/:deck_id" component={Deck} />
+            <Route path="/deck/:deckId" component={Deck} />
           </Switch>
         </Router>
       </AppWrapper>
