@@ -1,6 +1,7 @@
 import { FC, SyntheticEvent, ChangeEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { TableProps } from './Table.types';
 import { RootState } from '../../core/redux/store';
 import { addCard } from '../../core/modules/deck/deckStore';
 import CardSuit from '../../core/types/CardSuit';
@@ -36,24 +37,26 @@ const Table: FC<TableProps> = ({ children, canAdd, ...props }) => {
   return (
     <Styled.Table {...props}>
       <Styled.TableCardsContainer>{children}</Styled.TableCardsContainer>
-      <Styled.SubmitCardContainer>
-        <FormTitle>Add cards to the pile</FormTitle>
-        <form
-          onSubmit={(e: SyntheticEvent) => {
-            e.preventDefault();
-            handleSubmit();
-          }}
-        >
-          <TextField
-            value={inputCardValue}
-            name="card"
-            placeholder="Card name"
-            onChange={handleChange}
-            maxLength={2}
-          />
-          <Button>Add</Button>
-        </form>
-      </Styled.SubmitCardContainer>
+      {canAdd && (
+        <Styled.SubmitCardContainer>
+          <FormTitle>Add cards to the pile</FormTitle>
+          <form
+            onSubmit={(e: SyntheticEvent) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+          >
+            <TextField
+              value={inputCardValue}
+              name="card"
+              placeholder="Card name"
+              onChange={handleChange}
+              maxLength={2}
+            />
+            <Button>Add</Button>
+          </form>
+        </Styled.SubmitCardContainer>
+      )}
     </Styled.Table>
   );
 };

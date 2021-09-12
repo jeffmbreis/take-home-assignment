@@ -1,4 +1,4 @@
-# Deck od cards
+# Deck of cards
 
 Intricately take-home assignment
 

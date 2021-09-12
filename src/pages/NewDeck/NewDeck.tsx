@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
+import { BASE_URL } from '../../core/constants';
 import Styled from './NewDeck.styled';
 import validateCard from '../../helpers/validateCard';
 import Table from '../../components/Table';
@@ -22,43 +23,44 @@ const NewDeck: FC = (props) => {
   };
 
   const handleSubmit = async () => {
-    const baseUrl = 'https://deckofcardsapi.com';
-
     if (validateCard(inputRotationCardValue)) {
       const cardArray = cards.map((card) => `${card.value}${card.suit}`);
       const cardList = cardArray.join(',');
 
       const deck1Id = await axios
-        .get(`${baseUrl}/api/deck/new/?cards=${cardList}`)
+        .get(`${BASE_URL}/api/deck/new/?cards=${cardList}`)
         .then(function (deckResponse) {
-          return axios
-            .get(
-              `${baseUrl}/api/deck/${deckResponse.data.deck_id}/pile/hand/add?cards=${cardList}`,
-            )
-            .then(function (pileResponse) {
-              return pileResponse.data.deck_id;
-            });
+          return deckResponse.data.deck_id;
+        });
+
+      const pileHandResponse = await axios
+        .get(`${BASE_URL}/api/deck/${deck1Id}/pile/hand/add/?cards=${cardList}`)
+        .then(function (pileResponse) {
+          console.log('pileResponse', pileResponse.data);
+          return pileResponse.data.deck_id;
         });
 
       const deck2Id = await axios
-        .get(`${baseUrl}/api/deck/new/?cards=${inputRotationCardValue}`)
+        .get(`${BASE_URL}/api/deck/new/?cards=${inputRotationCardValue}`)
         .then(function (deckResponse) {
-          return axios
-            .get(
-              `${baseUrl}/api/deck/${deckResponse.data.deck_id}/pile/hand/add?cards=${inputRotationCardValue}`,
-            )
-            .then(function (pileResponse) {
-              return pileResponse.data.deck_id;
-            });
+          return deckResponse.data.deck_id;
         });
 
-      history.push(`/deck/${deck1Id}-${deck2Id}`);
+      const pileRotateResponse = await axios
+        .get(
+          `${BASE_URL}/api/deck/${deck2Id}/pile/rotation/add?cards=${inputRotationCardValue}`,
+        )
+        .then(function (pileResponse) {
+          return pileResponse.data.deck_id;
+        });
+
+      history.push(`/deck/${pileHandResponse}-${pileRotateResponse}`);
     }
   };
 
   return (
     <>
-      <Table {...props}>
+      <Table canAdd={true} {...props}>
         {cards.map((card, key) => (
           <Card key={key} suit={card.suit} value={card.value} />
         ))}
